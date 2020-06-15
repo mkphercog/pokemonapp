@@ -6,5 +6,5 @@ export const MainStyled = styled.main`
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: black;
+  background-color: lavender;
 `;

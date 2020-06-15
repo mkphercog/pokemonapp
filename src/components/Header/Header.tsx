@@ -1,10 +1,11 @@
 import React from "react";
 import { HeaderStyled, TitleStyled } from "./Header.css";
+import PokemonLogo from "./../../images/pokemon-logo.png";
 
 export const Header: React.FC<HeaderProps> = () => {
   return (
     <HeaderStyled>
-      <TitleStyled>Pokemon App</TitleStyled>
+      <TitleStyled src={PokemonLogo} />
     </HeaderStyled>
   );
 };

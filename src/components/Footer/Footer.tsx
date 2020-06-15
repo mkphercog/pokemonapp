@@ -1,10 +1,18 @@
 import React from "react";
-import { FooterStyled, TitleStyled } from "./Footer.css";
+import { FooterStyled, TitleStyled, AuthorLink } from "./Footer.css";
 
 export const Footer: React.FC<FooterProps> = () => {
   return (
     <FooterStyled>
-      <TitleStyled>MH</TitleStyled>
+      <TitleStyled>
+        Projekt i realizacja{" "}
+        <AuthorLink
+          href="https://mkphercog.github.io/mywebsite/#/"
+          target="blanc"
+        >
+          Marcin Hercog
+        </AuthorLink>
+      </TitleStyled>
     </FooterStyled>
   );
 };

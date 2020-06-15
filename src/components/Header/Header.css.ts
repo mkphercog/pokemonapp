@@ -6,10 +6,9 @@ export const HeaderStyled = styled.header`
   align-items: center;
   width: 100%;
   height: 10vh;
-  background-color: black;
+  background-color: khaki;
 `;
 
-export const TitleStyled = styled.h1`
-  color: white;
-  font-size: 20px;
+export const TitleStyled = styled.img`
+  height: 100%;
 `;
