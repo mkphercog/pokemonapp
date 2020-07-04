@@ -1,13 +1,9 @@
 import React from "react";
-import { HeaderStyled, TitleStyled } from "./Header.css";
-import PokemonLogo from "./../../images/pokemon-logo.png";
+import { HeaderStyled, PokemonLogoStyled } from "./Header.css";
+import pokemonLogo from "./../../images/pokemon-logo.png";
 
-export const Header: React.FC<HeaderProps> = () => {
-  return (
-    <HeaderStyled>
-      <TitleStyled src={PokemonLogo} />
-    </HeaderStyled>
-  );
-};
-
-interface HeaderProps {}
+export const Header: React.FC = () => (
+  <HeaderStyled>
+    <PokemonLogoStyled src={pokemonLogo} />
+  </HeaderStyled>
+);

@@ -9,6 +9,6 @@ export const HeaderStyled = styled.header`
   background-color: khaki;
 `;
 
-export const TitleStyled = styled.img`
+export const PokemonLogoStyled = styled.img`
   height: 100%;
 `;

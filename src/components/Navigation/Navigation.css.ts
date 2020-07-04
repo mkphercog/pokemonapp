@@ -18,8 +18,12 @@ export const NavLinkStyled = styled(NavLink)`
   color: burlywood;
   padding: 5px 15px;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 14px;
   transition: 0.2s;
+
+  @media (min-width: 768px) {
+    font-size: 18px;
+  }
 
   :hover {
     background-color: khaki;
