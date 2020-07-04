@@ -7,7 +7,7 @@ export const Base = styled.div`
   height: 80px;
 `;
 
-const facebook = keyframes`
+const facebook = keyframes` 
   0% {
     top: 8px;
     height: 64px;

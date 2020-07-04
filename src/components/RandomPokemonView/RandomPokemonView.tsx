@@ -1,50 +1,46 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { State } from "./../../store/interfaces";
 
 import { SharedButton } from "./../SharedButton/SharedButton";
-import { fetchData } from "./../../functions/fetchData";
 import { randomNumber } from "./../../functions/randomNumber";
-import questionMark from "./../../images/questionMark.png";
+import { LoadingComponent } from "../LoadingComponent/LoadingComponent";
+import { fetchRandomPokemon } from "../../store/actions/randomPokeAction";
 
 import { Wrapper, Container, Title, Image } from "./RandomPokemonView.css";
-import { LoadingComponent } from "../LoadingComponent/LoadingComponent";
+import questionMark from "./../../images/questionMark.png";
 
-const URL = "https://pokeapi.co/api/v2/pokemon/";
 const pokemonCount = 807;
 
 export const RandomPokemonView: React.FC = () => {
-  const [randomPokemon, setRandomPokemon] = useState({
-    id: 0,
-    name: "",
-    img: questionMark,
-  });
-  const { id: pokemonID, name: pokemonName, img: pokemonImg } = randomPokemon;
-  const [loaded, setLoaded] = useState(true);
+  const randomPokemon = useSelector((state: State) => state.randomPokemon);
+  const { fetching, error } = randomPokemon;
+  const { name, id, sprites } = randomPokemon.data;
+  const dispatch = useDispatch();
 
-  const handleClickRandom = useCallback(async () => {
-    setLoaded(false);
-    const fetchPoke = await fetchData(URL, randomNumber(pokemonCount));
-    const fetchedPoke = {
-      id: fetchPoke.id,
-      name: fetchPoke.name,
-      img: fetchPoke.sprites.front_default,
-    };
-    setRandomPokemon(fetchedPoke);
-    setLoaded(true);
-  }, []);
+  const handleClickRandom = useCallback(() => {
+    dispatch(fetchRandomPokemon(randomNumber(pokemonCount)));
+  }, [dispatch]);
 
   return (
     <Wrapper>
       <Container>
-        {loaded ? (
+        {!fetching && !error ? (
           <>
             <Title>
-              {pokemonName ? pokemonName : ""}{" "}
-              {pokemonID ? `(${pokemonID})` : ``}
+              {name ? name : ""} {id ? `(${id})` : ``}
             </Title>
-            <Image src={pokemonImg} alt="Pokemon" title={pokemonName} />
+            <Image
+              src={
+                sprites.front_default.length
+                  ? sprites.front_default
+                  : questionMark
+              }
+              alt="Pokemon"
+              title={name}
+            />
           </>
         ) : (
-          // <p>Ładowanie...</p>
           <LoadingComponent />
         )}
       </Container>
