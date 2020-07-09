@@ -1,6 +1,6 @@
 # Pokemon APP
 
-This application uses website https://pokeapi.co/ fetch data about pokemons. I learned here how to build pagination.
+This application uses website https://pokeapi.co/ to fetch data about pokemons. I learned here how to build pagination.
 
 ## If you want you can copy this app, for that use command:
 
