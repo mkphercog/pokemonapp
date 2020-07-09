@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { State } from "./../../store/interfaces";
+import { StateInterface } from "./../../store/interfaces";
 
 import { SharedButton } from "./../SharedButton/SharedButton";
 import { randomNumber } from "./../../functions/randomNumber";
@@ -13,7 +13,9 @@ import questionMark from "./../../images/questionMark.png";
 const pokemonCount = 807;
 
 export const RandomPokemonView: React.FC = () => {
-  const randomPokemon = useSelector((state: State) => state.randomPokemon);
+  const randomPokemon = useSelector(
+    (state: StateInterface) => state.randomPokemon
+  );
   const { fetching, error } = randomPokemon;
   const { name, id, sprites } = randomPokemon.data;
   const dispatch = useDispatch();

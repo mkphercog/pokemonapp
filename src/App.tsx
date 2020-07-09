@@ -8,14 +8,14 @@ import {
   fetchPokemonList,
   fetchPokemonImages,
 } from "./store/actions/pokemonListAction";
-import { State } from "./store/interfaces";
+import { StateInterface } from "./store/interfaces";
 
 import { GlobalStyles, AppStyled } from "./index.css";
 import { useDispatch, useSelector } from "react-redux";
 
 export const App = () => {
   const dispatch = useDispatch();
-  const pokemonList = useSelector((state: State) => state.pokemonList);
+  const pokemonList = useSelector((state: StateInterface) => state.pokemonList);
   const { fetchingList } = pokemonList;
   const { results } = pokemonList.data;
   useEffect(() => {

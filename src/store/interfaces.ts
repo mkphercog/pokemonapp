@@ -1,4 +1,4 @@
-export interface State {
+export interface StateInterface {
   randomPokemon: {
     fetching: boolean;
     fetched: boolean;

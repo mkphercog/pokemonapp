@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { SharedButton } from "./../SharedButton/SharedButton";
 import { fetchPokemonList } from "./../../store/actions/pokemonListAction";
-import { State } from "./../../store/interfaces";
+import { StateInterface } from "./../../store/interfaces";
 import { LoadingComponent } from "./../LoadingComponent/LoadingComponent";
 
 import {
@@ -18,7 +18,7 @@ import {
 export const PokemonList: React.SFC<PokemonListProps> = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const dispatch = useDispatch();
-  const pokemonList = useSelector((state: State) => state.pokemonList);
+  const pokemonList = useSelector((state: StateInterface) => state.pokemonList);
   const { fetchingList, images } = pokemonList;
   const { next, previous, results } = pokemonList.data;
 
