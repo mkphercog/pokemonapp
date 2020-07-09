@@ -1,4 +1,4 @@
-import { FETCHING_DATA, FETCHED_DATA, ERROR_DATA } from "./../types";
+import { FETCHING_RANDOM, FETCHED_RANDOM, ERROR_RANDOM } from "./../types";
 
 const initialState = {
   fetching: false,
@@ -15,7 +15,7 @@ const initialState = {
 
 export const randomPokeReducer = (state = initialState, action: Action) => {
   switch (action.type) {
-    case FETCHING_DATA:
+    case FETCHING_RANDOM:
       return {
         ...state,
         fetching: true,
@@ -23,7 +23,7 @@ export const randomPokeReducer = (state = initialState, action: Action) => {
         error: false,
         data: {},
       };
-    case FETCHED_DATA:
+    case FETCHED_RANDOM:
       return {
         ...state,
         fetching: false,
@@ -31,7 +31,7 @@ export const randomPokeReducer = (state = initialState, action: Action) => {
         error: false,
         data: action.payload,
       };
-    case ERROR_DATA:
+    case ERROR_RANDOM:
       return {
         ...state,
         fetching: false,
@@ -46,5 +46,11 @@ export const randomPokeReducer = (state = initialState, action: Action) => {
 
 interface Action {
   type: string;
-  payload: {};
+  payload: {
+    name: string;
+    id: number;
+    sprites: {
+      front_default: string;
+    };
+  };
 }

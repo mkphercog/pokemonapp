@@ -1,10 +1,10 @@
-import { FETCHING_DATA, FETCHED_DATA, ERROR_DATA } from "./../types/";
+import { FETCHING_RANDOM, FETCHED_RANDOM, ERROR_RANDOM } from "./../types/";
 const URL = "https://pokeapi.co/api/v2/pokemon/";
 
 export const fetchRandomPokemon = (pokemonId: number) => {
   return async (dispatch: Function) => {
     dispatch({
-      type: FETCHING_DATA,
+      type: FETCHING_RANDOM,
     });
 
     return await fetch(`${URL}${pokemonId}`)
@@ -15,13 +15,13 @@ export const fetchRandomPokemon = (pokemonId: number) => {
       })
       .then((res) =>
         dispatch({
-          type: FETCHED_DATA,
+          type: FETCHED_RANDOM,
           payload: res,
         })
       )
       .catch((error) => {
         dispatch({
-          type: ERROR_DATA,
+          type: ERROR_RANDOM,
         });
         console.log(error);
       });

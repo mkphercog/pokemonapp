@@ -2,8 +2,11 @@ import styled, { createGlobalStyle } from "styled-components";
 import { normalize } from "styled-normalize";
 
 export const GlobalStyles = createGlobalStyle`
-${normalize}
+  ${normalize}
 *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
  font-family: Arial, Helvetica, sans-serif;
 } 
 `;

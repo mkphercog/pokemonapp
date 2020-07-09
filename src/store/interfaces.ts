@@ -11,4 +11,19 @@ export interface State {
       };
     };
   };
+  pokemonList: {
+    fetchingList: boolean;
+    fetchedList: boolean;
+    errorList: boolean;
+    fetchingImages: boolean;
+    fetchedImages: boolean;
+    errorImages: boolean;
+    data: {
+      count: number;
+      next: string | null;
+      previous: string | null;
+      results: { name: string; url: string; image: string | undefined }[];
+    };
+    images: string[];
+  };
 }
