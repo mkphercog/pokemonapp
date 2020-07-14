@@ -18,6 +18,9 @@ export interface StateInterface {
     fetchingImages: boolean;
     fetchedImages: boolean;
     errorImages: boolean;
+    fetchingPNG: boolean;
+    fetchedPNG: boolean;
+    errorPNG: boolean;
     data: {
       count: number;
       next: string | null;
@@ -25,5 +28,8 @@ export interface StateInterface {
       results: { name: string; url: string; image: string | undefined }[];
     };
     images: string[];
+    pngs: string[];
+    currentPage: number;
+    pokemonsPerPage: number;
   };
 }

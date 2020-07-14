@@ -7,6 +7,7 @@ export const ButtonStyled = styled.button`
   border: 2px solid khaki;
   text-transform: uppercase;
   font-weight: bold;
+  font-size: 14px;
   color: black;
   border-radius: 10px;
   transition: 0.2s;
@@ -14,11 +15,11 @@ export const ButtonStyled = styled.button`
   outline-style: none;
 
   @media (min-width: 768px) {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   :hover {
-    transform: scale(1.05);
+    transform: scale(1.2);
     color: black;
     background-color: khaki;
     border: 2px solid lightyellow;

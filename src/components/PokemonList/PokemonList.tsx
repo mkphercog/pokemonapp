@@ -1,10 +1,17 @@
-import React, { useState, useMemo } from "react";
+import React, { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { SharedButton } from "./../SharedButton/SharedButton";
-import { fetchPokemonList } from "./../../store/actions/pokemonListAction";
+import {
+  fetchPokemonList,
+  prevPage,
+  nextPage,
+  resetPages,
+  changeNumberOfPokemonPerPage,
+} from "./../../store/actions/pokemonListAction";
 import { StateInterface } from "./../../store/interfaces";
 import { LoadingComponent } from "./../LoadingComponent/LoadingComponent";
+import questionMark from "./../../images/questionMark.png";
 
 import {
   Wrapper,
@@ -13,27 +20,34 @@ import {
   PokeName,
   Image,
   PagesControlPanel,
+  ButtonWrapper,
 } from "./PokemonList.css";
 
-export const PokemonList: React.SFC<PokemonListProps> = () => {
-  const [pageNumber, setPageNumber] = useState(1);
-  const dispatch = useDispatch();
-  const pokemonList = useSelector((state: StateInterface) => state.pokemonList);
-  const { fetchingList, images } = pokemonList;
-  const { next, previous, results } = pokemonList.data;
+const sixPerPage = 6;
+const ninePerPage = 9;
+const twelvePerPage = 12;
+const twentyOnePerPage = 21;
 
-  const pokemonsWithImages = useMemo(
-    () =>
-      results.map((poke) => {
+export const PokemonList: React.SFC<PokemonListProps> = () => {
+  const pokemonList = useSelector((state: StateInterface) => state.pokemonList);
+  const { fetchingList, pngs, pokemonsPerPage, currentPage } = pokemonList;
+  const { next, previous, results } = pokemonList.data;
+  const dispatch = useDispatch();
+
+  const pokemonsWithImages = useMemo(() => {
+    if (!(pngs.length < pokemonsPerPage)) {
+      return results.map((poke) => {
         const text = poke.url.slice(
-          poke.url.indexOf("/pokemon"),
+          poke.url.indexOf("/pokemon/"),
           poke.url.length - 1
         );
-        poke.image = images.find((image) => image.includes(text));
+        poke.image =
+          pngs.find((png) => png.includes(`${text}.png`)) || "Not found";
         return poke;
-      }),
-    [images, results]
-  );
+      });
+    }
+    return [];
+  }, [pngs, results, pokemonsPerPage]);
 
   const renderItems = useMemo(
     () =>
@@ -41,8 +55,8 @@ export const PokemonList: React.SFC<PokemonListProps> = () => {
         return (
           <Item key={poke.name}>
             <PokeName>{poke.name}</PokeName>
-            {!poke.image ? (
-              <LoadingComponent />
+            {poke.image === "Not found" ? (
+              <Image src={questionMark} alt={poke.name} />
             ) : (
               <Image src={poke.image} alt={poke.name} />
             )}
@@ -54,25 +68,67 @@ export const PokemonList: React.SFC<PokemonListProps> = () => {
 
   return (
     <Wrapper>
-      <List>{fetchingList ? <LoadingComponent /> : renderItems}</List>
+      <List>
+        {fetchingList || pngs.length < pokemonsPerPage ? (
+          <LoadingComponent />
+        ) : (
+          renderItems
+        )}
+      </List>
       <PagesControlPanel>
-        <SharedButton
-          fun={() => {
-            if (previous) {
-              dispatch(fetchPokemonList(previous));
-              setPageNumber(pageNumber - 1);
-            }
-          }}
-        >{`<`}</SharedButton>
-        {pageNumber}
-        <SharedButton
-          fun={() => {
-            if (next) {
-              dispatch(fetchPokemonList(next));
-              setPageNumber(pageNumber + 1);
-            }
-          }}
-        >{`>`}</SharedButton>
+        <ButtonWrapper>
+          <SharedButton
+            fun={() => {
+              if (previous) {
+                dispatch(prevPage());
+                dispatch(fetchPokemonList(previous));
+              }
+            }}
+          >{`<`}</SharedButton>
+          {currentPage}
+          <SharedButton
+            fun={() => {
+              if (next) {
+                dispatch(nextPage());
+                dispatch(fetchPokemonList(next));
+              }
+            }}
+          >{`>`}</SharedButton>
+        </ButtonWrapper>
+        <ButtonWrapper>
+          <SharedButton
+            fun={() => {
+              dispatch(changeNumberOfPokemonPerPage(sixPerPage));
+              dispatch(resetPages());
+            }}
+          >
+            {sixPerPage}
+          </SharedButton>
+          <SharedButton
+            fun={() => {
+              dispatch(changeNumberOfPokemonPerPage(ninePerPage));
+              dispatch(resetPages());
+            }}
+          >
+            {ninePerPage}
+          </SharedButton>
+          <SharedButton
+            fun={() => {
+              dispatch(changeNumberOfPokemonPerPage(twelvePerPage));
+              dispatch(resetPages());
+            }}
+          >
+            {twelvePerPage}
+          </SharedButton>
+          <SharedButton
+            fun={() => {
+              dispatch(changeNumberOfPokemonPerPage(twentyOnePerPage));
+              dispatch(resetPages());
+            }}
+          >
+            {twentyOnePerPage}
+          </SharedButton>
+        </ButtonWrapper>
       </PagesControlPanel>
     </Wrapper>
   );

@@ -5,19 +5,22 @@ import {
   FETCHING_POKE_IMAGES,
   FETCHED_POKE_IMAGES,
   ERROR_POKE_IMAGES,
+  FETCHING_POKE_PNG,
+  FETCHED_POKE_PNG,
+  ERROR_POKE_PNG,
+  NEXT_LIST_PAGE,
+  PREV_LIST_PAGE,
+  CHANGE_NUMBER_OF_POKEMON_PER_PAGE,
+  RESET_LIST_PAGE,
 } from "../types";
 
-const pokemonPerPage = 9;
-const startingPoint = 0;
-const URL = `https://pokeapi.co/api/v2/pokemon?limit=${pokemonPerPage}&offset=${startingPoint}`;
-
-export const fetchPokemonList = (nextURL: string = URL) => {
+export const fetchPokemonList = (URL: string) => {
   return async (dispatch: Function) => {
     dispatch({
       type: FETCHING_LIST,
     });
 
-    return await fetch(`${nextURL}`)
+    return await fetch(`${URL}`)
       .then((res) => {
         if (res.status === 200) {
           return res.json();
@@ -38,8 +41,8 @@ export const fetchPokemonList = (nextURL: string = URL) => {
   };
 };
 
-export const fetchPokemonImages = (
-  urlList: { name: string; url: string }[]
+export const fetchPokemonImagesUrls = (
+  listOfUrls: { name: string; url: string }[]
 ) => {
   return async (dispatch: Function) => {
     dispatch({
@@ -47,7 +50,7 @@ export const fetchPokemonImages = (
     });
 
     return await Promise.all(
-      urlList.map(
+      listOfUrls.map(
         async (result: { url: string }) =>
           await (await fetch(result.url))
             .json()
@@ -67,3 +70,47 @@ export const fetchPokemonImages = (
     );
   };
 };
+
+export const fetchPokemonPNG = (listOfUrls: string[]) => {
+  return async (dispatch: Function) => {
+    dispatch({
+      type: FETCHING_POKE_PNG,
+    });
+
+    return await Promise.all(
+      listOfUrls.map(
+        async (result: string) =>
+          await fetch(result)
+            .then((res) => {
+              dispatch({
+                type: FETCHED_POKE_PNG,
+                payload: res.url,
+              });
+            })
+            .catch((error) => {
+              dispatch({
+                type: ERROR_POKE_PNG,
+              });
+              console.log(error);
+            })
+      )
+    );
+  };
+};
+
+export const nextPage = () => ({
+  type: NEXT_LIST_PAGE,
+});
+
+export const prevPage = () => ({
+  type: PREV_LIST_PAGE,
+});
+
+export const resetPages = () => ({
+  type: RESET_LIST_PAGE,
+});
+
+export const changeNumberOfPokemonPerPage = (num: number) => ({
+  type: CHANGE_NUMBER_OF_POKEMON_PER_PAGE,
+  payload: num,
+});

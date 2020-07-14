@@ -5,6 +5,13 @@ import {
   FETCHING_POKE_IMAGES,
   FETCHED_POKE_IMAGES,
   ERROR_POKE_IMAGES,
+  FETCHING_POKE_PNG,
+  FETCHED_POKE_PNG,
+  ERROR_POKE_PNG,
+  NEXT_LIST_PAGE,
+  PREV_LIST_PAGE,
+  RESET_LIST_PAGE,
+  CHANGE_NUMBER_OF_POKEMON_PER_PAGE,
 } from "../types";
 
 const initialState = {
@@ -14,6 +21,9 @@ const initialState = {
   fetchingImages: false,
   fetchedImages: false,
   errorImages: false,
+  fetchingPNG: false,
+  fetchedPNG: false,
+  errorPNG: false,
   data: {
     count: 0,
     next: "",
@@ -21,6 +31,9 @@ const initialState = {
     results: [],
   },
   images: [],
+  pngs: [],
+  currentPage: 1,
+  pokemonsPerPage: 9,
 };
 
 export const pokemonListReducer = (state = initialState, action: Action) => {
@@ -37,6 +50,8 @@ export const pokemonListReducer = (state = initialState, action: Action) => {
           previous: "",
           results: [],
         },
+        images: [],
+        pngs: [],
       };
     case FETCHED_LIST:
       return {
@@ -83,6 +98,52 @@ export const pokemonListReducer = (state = initialState, action: Action) => {
         fetchedImages: false,
         errorImages: true,
         images: [],
+      };
+
+    case FETCHING_POKE_PNG:
+      return {
+        ...state,
+        fetchingPNG: true,
+        fetchedPNG: false,
+        errorPNG: false,
+        pngs: [],
+      };
+    case FETCHED_POKE_PNG:
+      return {
+        ...state,
+        fetchingPNG: false,
+        fetchedPNG: true,
+        errorPNG: false,
+        pngs: [...state.pngs, action.payload],
+      };
+    case ERROR_POKE_PNG:
+      return {
+        ...state,
+        fetchingPNG: false,
+        fetchedPNG: false,
+        errorPNG: true,
+        pngs: [],
+      };
+
+    case NEXT_LIST_PAGE:
+      return {
+        ...state,
+        currentPage: state.currentPage + 1,
+      };
+    case PREV_LIST_PAGE:
+      return {
+        ...state,
+        currentPage: state.currentPage - 1,
+      };
+    case RESET_LIST_PAGE:
+      return {
+        ...state,
+        currentPage: 1,
+      };
+    case CHANGE_NUMBER_OF_POKEMON_PER_PAGE:
+      return {
+        ...state,
+        pokemonsPerPage: action.payload,
       };
     default:
       return state;

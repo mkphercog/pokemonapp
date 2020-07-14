@@ -6,25 +6,34 @@ import { Main } from "./components/Main/Main";
 import { Footer } from "./components/Footer/Footer";
 import {
   fetchPokemonList,
-  fetchPokemonImages,
+  fetchPokemonImagesUrls,
+  fetchPokemonPNG,
 } from "./store/actions/pokemonListAction";
 import { StateInterface } from "./store/interfaces";
 
 import { GlobalStyles, AppStyled } from "./index.css";
 import { useDispatch, useSelector } from "react-redux";
 
+const startingPoint = 0;
+
 export const App = () => {
-  const dispatch = useDispatch();
   const pokemonList = useSelector((state: StateInterface) => state.pokemonList);
-  const { fetchingList } = pokemonList;
+  const { fetchingList, images, pokemonsPerPage } = pokemonList;
   const { results } = pokemonList.data;
-  useEffect(() => {
-    dispatch(fetchPokemonList());
-  }, [dispatch]);
+  const URL = `https://pokeapi.co/api/v2/pokemon?limit=${pokemonsPerPage}&offset=${startingPoint}`;
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!fetchingList) dispatch(fetchPokemonImages(results));
+    dispatch(fetchPokemonList(URL));
+  }, [dispatch, URL]);
+
+  useEffect(() => {
+    if (!fetchingList) dispatch(fetchPokemonImagesUrls(results));
   }, [fetchingList, results, dispatch]);
+
+  useEffect(() => {
+    if (images.length === pokemonsPerPage) dispatch(fetchPokemonPNG(images));
+  }, [images, dispatch, pokemonsPerPage]);
 
   return (
     <AppStyled>
