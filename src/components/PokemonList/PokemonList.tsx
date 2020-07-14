@@ -28,7 +28,7 @@ const ninePerPage = 9;
 const twelvePerPage = 12;
 const twentyOnePerPage = 21;
 
-export const PokemonList: React.SFC<PokemonListProps> = () => {
+export const PokemonList: React.FC<PokemonListProps> = () => {
   const pokemonList = useSelector((state: StateInterface) => state.pokemonList);
   const { fetchingList, pngs, pokemonsPerPage, currentPage } = pokemonList;
   const { next, previous, results } = pokemonList.data;
@@ -88,7 +88,13 @@ export const PokemonList: React.SFC<PokemonListProps> = () => {
           {currentPage}
           <SharedButton
             fun={() => {
-              if (next) {
+              const isCorrectLimit = next?.slice(
+                next.indexOf("limit=") + 6,
+                next.length
+              );
+              console.log(isCorrectLimit, next?.indexOf("limit="));
+              if (next && Number(isCorrectLimit) === pokemonsPerPage) {
+                console.log(next);
                 dispatch(nextPage());
                 dispatch(fetchPokemonList(next));
               }
