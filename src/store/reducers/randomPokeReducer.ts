@@ -1,9 +1,19 @@
-import { FETCHING_RANDOM, FETCHED_RANDOM, ERROR_RANDOM } from "./../types";
+import {
+  FETCHING_RANDOM,
+  FETCHED_RANDOM,
+  ERROR_RANDOM,
+  FETCHING_RANDOM_PNG,
+  FETCHED_RANDOM_PNG,
+  ERROR_RANDOM_PNG,
+} from "./../types";
 
 const initialState = {
-  fetching: false,
-  fetched: false,
-  error: false,
+  fetchingRandom: false,
+  fetchedRandom: false,
+  errorRandom: false,
+  fetchingRandomPng: false,
+  fetchedRandomPng: false,
+  errorRandomPng: false,
   data: {
     name: "",
     id: 0,
@@ -11,6 +21,7 @@ const initialState = {
       front_default: "",
     },
   },
+  png: "",
 };
 
 export const randomPokeReducer = (state = initialState, action: Action) => {
@@ -18,26 +29,52 @@ export const randomPokeReducer = (state = initialState, action: Action) => {
     case FETCHING_RANDOM:
       return {
         ...state,
-        fetching: true,
-        fetched: false,
-        error: false,
+        fetchingRandom: true,
+        fetchedRandom: false,
+        errorRandom: false,
         data: {},
+        png: "",
       };
     case FETCHED_RANDOM:
       return {
         ...state,
-        fetching: false,
-        fetched: true,
-        error: false,
+        fetchingRandom: false,
+        fetchedRandom: true,
+        errorRandom: false,
         data: action.payload,
       };
     case ERROR_RANDOM:
       return {
         ...state,
-        fetching: false,
-        fetched: false,
-        error: true,
+        fetchingRandom: false,
+        fetchedRandom: false,
+        errorRandom: true,
         data: {},
+      };
+
+    case FETCHING_RANDOM_PNG:
+      return {
+        ...state,
+        fetchingRandomPng: true,
+        fetchedRandomPng: false,
+        errorRandomPng: false,
+        png: "",
+      };
+    case FETCHED_RANDOM_PNG:
+      return {
+        ...state,
+        fetchingRandomPng: false,
+        fetchedRandomPng: true,
+        errorRandomPng: false,
+        png: action.payload,
+      };
+    case ERROR_RANDOM_PNG:
+      return {
+        ...state,
+        fetchingRandomPng: false,
+        fetchedRandomPng: false,
+        errorRandomPng: true,
+        png: "",
       };
     default:
       return state;

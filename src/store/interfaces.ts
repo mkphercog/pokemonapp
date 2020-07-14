@@ -1,8 +1,11 @@
 export interface StateInterface {
   randomPokemon: {
-    fetching: boolean;
-    fetched: boolean;
-    error: boolean;
+    fetchingRandom: boolean;
+    fetchedRandom: boolean;
+    errorRandom: boolean;
+    fetchingRandomPng: boolean;
+    fetchedRandomPng: boolean;
+    errorRandomPng: boolean;
     data: {
       name: string;
       id: number;
@@ -10,7 +13,9 @@ export interface StateInterface {
         front_default: string;
       };
     };
+    png: string;
   };
+
   pokemonList: {
     fetchingList: boolean;
     fetchedList: boolean;
