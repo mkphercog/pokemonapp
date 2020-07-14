@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StateInterface } from "./../../store/interfaces";
 
@@ -22,10 +22,15 @@ export const RandomPokemonView: React.FC = () => {
   const { fetchingRandom, errorRandom, fetchingRandomPng } = randomPokemon;
   const { name, id, sprites } = randomPokemon.data;
   const dispatch = useDispatch();
+  const prevPokeID = useRef(id);
 
   useEffect(() => {
+    console.log(`PREV: ${prevPokeID.current}, ID: ${id}`);
     if (sprites && id !== 0) {
-      dispatch(fetchRandomPokemonPNG(sprites.front_default));
+      if (id !== prevPokeID.current) {
+        dispatch(fetchRandomPokemonPNG(sprites.front_default));
+        prevPokeID.current = id;
+      }
     }
   }, [id, sprites, dispatch]);
 
