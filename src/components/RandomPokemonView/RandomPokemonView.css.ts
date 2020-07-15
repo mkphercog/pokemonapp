@@ -18,7 +18,7 @@ export const Container = styled.div`
   min-height: 200px;
 
   @media (orientation: landscape) and (max-width: 768px) {
-    min-height: 155px;
+    min-height: 100px;
   }
 `;
 

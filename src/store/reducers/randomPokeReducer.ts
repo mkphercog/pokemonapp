@@ -32,7 +32,13 @@ export const randomPokeReducer = (state = initialState, action: Action) => {
         fetchingRandom: true,
         fetchedRandom: false,
         errorRandom: false,
-        data: {},
+        data: {
+          name: "",
+          id: 0,
+          sprites: {
+            front_default: "",
+          },
+        },
         png: "",
       };
     case FETCHED_RANDOM:
@@ -49,7 +55,13 @@ export const randomPokeReducer = (state = initialState, action: Action) => {
         fetchingRandom: false,
         fetchedRandom: false,
         errorRandom: true,
-        data: {},
+        data: {
+          name: "",
+          id: 0,
+          sprites: {
+            front_default: "",
+          },
+        },
       };
 
     case FETCHING_RANDOM_PNG:
