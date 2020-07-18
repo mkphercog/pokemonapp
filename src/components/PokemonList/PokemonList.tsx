@@ -16,12 +16,13 @@ export const PokemonList: React.FC = () => {
   const pokemonsWithImages = useMemo(() => {
     if (!(pngs.length < pokemonsPerPage)) {
       return results.map((poke) => {
-        const text = poke.url.slice(
+        const slicedPokemonIdFromURL = poke.url.slice(
           poke.url.indexOf("/pokemon/"),
           poke.url.length - 1
         );
         poke.image =
-          pngs.find((png) => png.includes(`${text}.png`)) || "Not found";
+          pngs.find((png) => png.includes(`${slicedPokemonIdFromURL}.png`)) ||
+          "Not found";
         return poke;
       });
     }
@@ -31,14 +32,16 @@ export const PokemonList: React.FC = () => {
   const renderItems = useMemo(
     () =>
       pokemonsWithImages.map((poke) => {
+        const pokemonImage =
+          poke.image === "Not found" ? (
+            <Image src={questionMark} alt={poke.name} />
+          ) : (
+            <Image src={poke.image} alt={poke.name} />
+          );
         return (
           <Item key={poke.name}>
             <PokeName>{poke.name}</PokeName>
-            {poke.image === "Not found" ? (
-              <Image src={questionMark} alt={poke.name} />
-            ) : (
-              <Image src={poke.image} alt={poke.name} />
-            )}
+            {pokemonImage}
           </Item>
         );
       }),

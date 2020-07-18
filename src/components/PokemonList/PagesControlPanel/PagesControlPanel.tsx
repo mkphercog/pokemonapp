@@ -48,7 +48,7 @@ export const PagesControlPanel: React.FC<PagesControlPanelProps> = ({
         <SharedButton
           fun={() => {
             const isCorrectLimit = next?.slice(
-              next.indexOf("limit=") + 6,
+              next.indexOf("limit=") + "limit=".length,
               next.length
             );
             if (next && Number(isCorrectLimit) === pokemonsPerPage) {
