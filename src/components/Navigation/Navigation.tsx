@@ -5,10 +5,10 @@ import { NavigationStyled, NavList, NavLinkStyled } from "./Navigation.css";
 export const Navigation: React.FC = () => (
   <NavigationStyled>
     <NavList>
-      <NavLinkStyled to="/" exact>
+      <NavLinkStyled to="/pokemonapp/" exact>
         Losuj
       </NavLinkStyled>
-      <NavLinkStyled to="/list">Lista</NavLinkStyled>
+      <NavLinkStyled to="/pokemonapp/list">Lista</NavLinkStyled>
       {/* <NavLinkStyled to="/favourite">Ulubione</NavLinkStyled> */}
     </NavList>
   </NavigationStyled>
