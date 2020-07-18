@@ -9,7 +9,7 @@ export const Navigation: React.FC = () => (
         Losuj
       </NavLinkStyled>
       <NavLinkStyled to="/list">Lista</NavLinkStyled>
-      <NavLinkStyled to="/favourite">Ulubione</NavLinkStyled>
+      {/* <NavLinkStyled to="/favourite">Ulubione</NavLinkStyled> */}
     </NavList>
   </NavigationStyled>
 );

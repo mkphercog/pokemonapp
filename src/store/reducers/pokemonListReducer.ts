@@ -33,7 +33,7 @@ const initialState = {
   images: [],
   pngs: [],
   currentPage: 1,
-  pokemonsPerPage: 9,
+  pokemonsPerPage: 6,
 };
 
 export const pokemonListReducer = (state = initialState, action: Action) => {

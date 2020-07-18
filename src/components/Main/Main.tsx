@@ -15,9 +15,9 @@ export const Main: React.FC = () => (
       <Route path="/list" exact>
         <PokemonList />
       </Route>
-      <Route path="/favourite" exact>
+      {/* <Route path="/favourite" exact>
         <div>Favourite - in progress...</div>
-      </Route>
+      </Route> */}
     </Switch>
   </MainStyled>
 );

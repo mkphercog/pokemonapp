@@ -1,38 +1,17 @@
 import React, { useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
-import { SharedButton } from "./../SharedButton/SharedButton";
-import {
-  fetchPokemonList,
-  prevPage,
-  nextPage,
-  resetPages,
-  changeNumberOfPokemonPerPage,
-} from "./../../store/actions/pokemonListAction";
+import { useSelector } from "react-redux";
 import { StateInterface } from "./../../store/interfaces";
+
+import { PagesControlPanel } from "./PagesControlPanel/PagesControlPanel";
 import { LoadingComponent } from "./../LoadingComponent/LoadingComponent";
+
+import { Wrapper, List, Item, PokeName, Image } from "./PokemonList.css";
 import questionMark from "./../../images/questionMark.png";
 
-import {
-  Wrapper,
-  List,
-  Item,
-  PokeName,
-  Image,
-  PagesControlPanel,
-  ButtonWrapper,
-} from "./PokemonList.css";
-
-const sixPerPage = 6;
-const ninePerPage = 9;
-const twelvePerPage = 12;
-const twentyOnePerPage = 21;
-
-export const PokemonList: React.FC<PokemonListProps> = () => {
+export const PokemonList: React.FC = () => {
   const pokemonList = useSelector((state: StateInterface) => state.pokemonList);
-  const { fetchingList, pngs, pokemonsPerPage, currentPage } = pokemonList;
-  const { next, previous, results } = pokemonList.data;
-  const dispatch = useDispatch();
+  const { fetchingList, pngs, pokemonsPerPage } = pokemonList;
+  const { results } = pokemonList.data;
 
   const pokemonsWithImages = useMemo(() => {
     if (!(pngs.length < pokemonsPerPage)) {
@@ -75,69 +54,7 @@ export const PokemonList: React.FC<PokemonListProps> = () => {
           renderItems
         )}
       </List>
-      <PagesControlPanel>
-        <ButtonWrapper>
-          <SharedButton
-            fun={() => {
-              if (previous) {
-                dispatch(prevPage());
-                dispatch(fetchPokemonList(previous));
-              }
-            }}
-          >{`<`}</SharedButton>
-          {currentPage}
-          <SharedButton
-            fun={() => {
-              const isCorrectLimit = next?.slice(
-                next.indexOf("limit=") + 6,
-                next.length
-              );
-              console.log(isCorrectLimit, next?.indexOf("limit="));
-              if (next && Number(isCorrectLimit) === pokemonsPerPage) {
-                console.log(next);
-                dispatch(nextPage());
-                dispatch(fetchPokemonList(next));
-              }
-            }}
-          >{`>`}</SharedButton>
-        </ButtonWrapper>
-        <ButtonWrapper>
-          <SharedButton
-            fun={() => {
-              dispatch(changeNumberOfPokemonPerPage(sixPerPage));
-              dispatch(resetPages());
-            }}
-          >
-            {sixPerPage}
-          </SharedButton>
-          <SharedButton
-            fun={() => {
-              dispatch(changeNumberOfPokemonPerPage(ninePerPage));
-              dispatch(resetPages());
-            }}
-          >
-            {ninePerPage}
-          </SharedButton>
-          <SharedButton
-            fun={() => {
-              dispatch(changeNumberOfPokemonPerPage(twelvePerPage));
-              dispatch(resetPages());
-            }}
-          >
-            {twelvePerPage}
-          </SharedButton>
-          <SharedButton
-            fun={() => {
-              dispatch(changeNumberOfPokemonPerPage(twentyOnePerPage));
-              dispatch(resetPages());
-            }}
-          >
-            {twentyOnePerPage}
-          </SharedButton>
-        </ButtonWrapper>
-      </PagesControlPanel>
+      <PagesControlPanel pokePerPageButtons={[6, 12, 33]} />
     </Wrapper>
   );
 };
-
-interface PokemonListProps {}
