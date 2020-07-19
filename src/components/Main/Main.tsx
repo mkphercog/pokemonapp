@@ -9,15 +9,12 @@ import { MainStyled } from "./Main.css";
 export const Main: React.FC = () => (
   <MainStyled>
     <Switch>
-      <Route path="/pokemonapp/" exact>
+      <Route path="/" exact>
         <RandomPokemonView />
       </Route>
-      <Route path="/pokemonapp/list" exact>
+      <Route path="/list" exact>
         <PokemonList />
       </Route>
-      {/* <Route path="/favourite" exact>
-        <div>Favourite - in progress...</div>
-      </Route> */}
     </Switch>
   </MainStyled>
 );
