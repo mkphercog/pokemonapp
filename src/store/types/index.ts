@@ -20,6 +20,7 @@ export const ERROR_POKE_PNG = "ERROR_POKE_PNG";
 
 export const NEXT_LIST_PAGE = "NEXT_LIST_PAGE";
 export const PREV_LIST_PAGE = "PREV_LIST_PAGE";
+export const SET_LIST_PAGE = "SET_LIST_PAGE";
 export const RESET_LIST_PAGE = "RESET_LIST_PAGE";
 
 export const CHANGE_NUMBER_OF_POKEMON_PER_PAGE =

@@ -10,6 +10,7 @@ import {
   ERROR_POKE_PNG,
   NEXT_LIST_PAGE,
   PREV_LIST_PAGE,
+  SET_LIST_PAGE,
   CHANGE_NUMBER_OF_POKEMON_PER_PAGE,
   RESET_LIST_PAGE,
 } from "../types";
@@ -104,6 +105,11 @@ export const nextPage = () => ({
 
 export const prevPage = () => ({
   type: PREV_LIST_PAGE,
+});
+
+export const setPageAction = (pageNumber: number) => ({
+  type: SET_LIST_PAGE,
+  payload: pageNumber,
 });
 
 export const resetPages = () => ({

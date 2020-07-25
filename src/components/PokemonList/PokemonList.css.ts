@@ -36,6 +36,8 @@ export const Item = styled.div`
   height: calc(100% / 3);
   margin: 15px 0;
   padding: 5px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.02);
   transition: 0.2s;
 
   @media (min-width: 1024px) {
@@ -43,7 +45,6 @@ export const Item = styled.div`
     height: calc(100% / 4);
     margin: 15px 20px;
     :hover {
-      border-radius: 10px;
       background-color: lightgray;
       cursor: pointer;
     }

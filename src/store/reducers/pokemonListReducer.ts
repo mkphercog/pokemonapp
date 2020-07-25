@@ -10,6 +10,7 @@ import {
   ERROR_POKE_PNG,
   NEXT_LIST_PAGE,
   PREV_LIST_PAGE,
+  SET_LIST_PAGE,
   RESET_LIST_PAGE,
   CHANGE_NUMBER_OF_POKEMON_PER_PAGE,
 } from "../types";
@@ -134,6 +135,11 @@ export const pokemonListReducer = (state = initialState, action: Action) => {
       return {
         ...state,
         currentPage: state.currentPage - 1,
+      };
+    case SET_LIST_PAGE:
+      return {
+        ...state,
+        currentPage: action.payload,
       };
     case RESET_LIST_PAGE:
       return {
