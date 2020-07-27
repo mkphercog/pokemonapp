@@ -24,4 +24,4 @@ npm install
 
 ## See my pokemon app here:
 
-[PokemonApp soon](https://mkphercog.github.io/pokemonapp/)
+[PokemonApp](https://mkphercog.github.io/pokemonapp/)
