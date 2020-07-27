@@ -4,8 +4,14 @@ import { ButtonStyled } from "./SharedButton.css";
 export const SharedButton: React.FC<SharedButtonProps> = ({
   fun,
   children,
-}) => <ButtonStyled onClick={() => fun()}>{children}</ButtonStyled>;
+  isChosen,
+}) => (
+  <ButtonStyled isChosen={isChosen ? isChosen : false} onClick={() => fun()}>
+    {children}
+  </ButtonStyled>
+);
 
 interface SharedButtonProps {
   fun: Function;
+  isChosen?: boolean;
 }

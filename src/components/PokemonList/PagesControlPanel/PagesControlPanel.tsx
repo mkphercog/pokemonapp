@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { StateInterface } from "./../../../store/interfaces";
 
@@ -28,18 +28,23 @@ export const PagesControlPanel: React.FC<PagesControlPanelProps> = ({
   const [page, setPage] = useState(String(currentPage));
   const dispatch = useDispatch();
 
-  const renderPerPageButtons = pokePerPageButtons.map((perPage: number) => (
-    <SharedButton
-      key={perPage}
-      fun={() => {
-        dispatch(changeNumberOfPokemonPerPage(perPage));
-        dispatch(resetPages());
-        setPage("1");
-      }}
-    >
-      {perPage}
-    </SharedButton>
-  ));
+  const renderPerPageButtons = useMemo(
+    () =>
+      pokePerPageButtons.map((perPage: number) => (
+        <SharedButton
+          key={perPage}
+          isChosen={pokemonsPerPage === perPage ? true : false}
+          fun={() => {
+            dispatch(changeNumberOfPokemonPerPage(perPage));
+            dispatch(resetPages());
+            setPage("1");
+          }}
+        >
+          {perPage}
+        </SharedButton>
+      )),
+    [dispatch, pokePerPageButtons, pokemonsPerPage]
+  );
 
   const handleSubmitPage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
