@@ -23,12 +23,20 @@ export const Board = styled.div`
   background-color: rgba(160, 160, 160, 0.96);
   overflow: auto;
 
+  @media (min-width: 360px) {
+    height: 65%;
+  }
+
+  @media (min-width: 411px) {
+    height: 60%;
+  }
+
   @media (min-width: 500px) and (orientation: landscape) {
     width: 45%;
     height: 85%;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 768px) and (orientation: portrait) {
     width: 50%;
     height: 60%;
   }
@@ -52,6 +60,7 @@ export const Board = styled.div`
 
   img {
     margin-bottom: 15px;
+    flex-shrink: 0;
     width: 110px;
     height: 110px;
 
