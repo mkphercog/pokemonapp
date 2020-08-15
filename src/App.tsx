@@ -4,6 +4,7 @@ import { Header } from "./components/Header/Header";
 import { Navigation } from "./components/Navigation/Navigation";
 import { Main } from "./components/Main/Main";
 import { Footer } from "./components/Footer/Footer";
+import { PokeDetails } from "./components/PokeDetails/PokeDetails";
 import {
   fetchPokemonList,
   fetchPokemonImagesUrls,
@@ -18,6 +19,9 @@ const startingPoint = 0;
 
 export const App = () => {
   const pokemonList = useSelector((state: StateInterface) => state.pokemonList);
+  const portalIsOpen = useSelector(
+    (state: StateInterface) => state.pokemonDetails.visibility
+  );
   const { fetchingList, images, pokemonsPerPage } = pokemonList;
   const { results } = pokemonList.data;
   const URL = `https://pokeapi.co/api/v2/pokemon?limit=${pokemonsPerPage}&offset=${startingPoint}`;
@@ -42,6 +46,7 @@ export const App = () => {
       <Main />
       <Footer />
       <GlobalStyles />
+      <PokeDetails isOpen={portalIsOpen} />
     </AppStyled>
   );
 };

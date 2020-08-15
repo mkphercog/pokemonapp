@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { StateInterface } from "./../../store/interfaces";
+import { showPokeDetails } from "./../../store/actions/pokemonDetailsAction";
 
 import { PagesControlPanel } from "./PagesControlPanel/PagesControlPanel";
 import { LoadingComponent } from "./../LoadingComponent/LoadingComponent";
@@ -10,6 +11,7 @@ import questionMark from "./../../images/questionMark.png";
 
 export const PokemonList: React.FC = () => {
   const pokemonList = useSelector((state: StateInterface) => state.pokemonList);
+  const dispatch = useDispatch();
   const { fetchingList, pngs, pokemonsPerPage } = pokemonList;
   const { results } = pokemonList.data;
 
@@ -39,13 +41,18 @@ export const PokemonList: React.FC = () => {
             <Image src={poke.image} alt={poke.name} />
           );
         return (
-          <Item key={poke.name}>
+          <Item
+            key={poke.name}
+            onClick={() => {
+              dispatch(showPokeDetails(poke.url));
+            }}
+          >
             <PokeName>{poke.name}</PokeName>
             {pokemonImage}
           </Item>
         );
       }),
-    [pokemonsWithImages]
+    [pokemonsWithImages, dispatch]
   );
 
   return (
@@ -57,7 +64,7 @@ export const PokemonList: React.FC = () => {
           renderItems
         )}
       </List>
-      <PagesControlPanel pokePerPageButtons={[6, 12, 33]} />
+      <PagesControlPanel pokePerPageButtons={[6, 12, 21]} />
     </Wrapper>
   );
 };

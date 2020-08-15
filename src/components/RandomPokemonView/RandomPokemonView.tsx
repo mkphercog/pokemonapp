@@ -8,12 +8,14 @@ import {
   fetchRandomPokemon,
   fetchRandomPokemonPNG,
 } from "../../store/actions/randomPokeAction";
+import { showPokeDetails } from "./../../store/actions/pokemonDetailsAction";
 
 import { randomNumber } from "./../../functions/randomNumber";
 import { Wrapper, Container, Title, Image } from "./RandomPokemonView.css";
 import questionMark from "./../../images/questionMark.png";
 
 const pokemonCount = 807;
+const URL = "https://pokeapi.co/api/v2/pokemon/";
 
 export const RandomPokemonView: React.FC = () => {
   const randomPokemon = useSelector(
@@ -40,13 +42,17 @@ export const RandomPokemonView: React.FC = () => {
           src={
             sprites.front_default.length ? sprites.front_default : questionMark
           }
+          onClick={() => {
+            if (sprites.front_default.length)
+              dispatch(showPokeDetails(`${URL}${id}`));
+          }}
           alt="Pokemon"
           title={name}
         />
       ) : (
         <LoadingComponent />
       ),
-    [fetchingRandomPng, name, sprites]
+    [fetchingRandomPng, name, sprites, dispatch, id]
   );
 
   const handleClickRandom = useCallback(() => {

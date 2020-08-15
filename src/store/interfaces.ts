@@ -37,4 +37,16 @@ export interface StateInterface {
     currentPage: number;
     pokemonsPerPage: number;
   };
+
+  pokemonDetails: {
+    visibility: boolean;
+    pokeUrl: string;
+    pokeDetails: {
+      base_experience: number;
+      id: number;
+      name: string;
+      sprites: { front_default: string };
+      stats: { base_stat: number; stat: { name: string } }[];
+    };
+  };
 }

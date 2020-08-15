@@ -36,4 +36,8 @@ export const Image = styled.img`
   max-width: 100px;
   max-height: 100px;
   transform: scale(1.4);
+
+  @media (min-width: 1024px) {
+    cursor: pointer;
+  }
 `;
